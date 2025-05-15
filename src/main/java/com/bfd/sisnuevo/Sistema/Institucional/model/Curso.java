@@ -1,5 +1,6 @@
 package com.bfd.sisnuevo.Sistema.Institucional.model;
 
+import com.bfd.sisnuevo.Sistema.Institucional.dto.create.CursoDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,4 +24,17 @@ public class Curso {
     private LocalDate fechaFin;
     private Boolean estado;
     private Long materia;
+
+    public Curso(LocalDate fechaInicio, LocalDate fechaFin, Boolean estado) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.estado = estado;
+    }
+
+    public Curso(CursoDTO curso) {
+        this.estado = true;
+        this.fechaInicio = curso.getFechaInicio();
+        this.fechaFin = curso.getFechaFin();
+        this.materia = this.getMateria();
+    }
 }

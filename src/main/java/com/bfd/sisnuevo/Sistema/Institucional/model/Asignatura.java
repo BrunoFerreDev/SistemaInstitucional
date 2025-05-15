@@ -1,5 +1,7 @@
 package com.bfd.sisnuevo.Sistema.Institucional.model;
 
+import com.bfd.sisnuevo.Sistema.Institucional.dto.create.AsignaturaDTO;
+import com.bfd.sisnuevo.Sistema.Institucional.dto.get.GetAsignaturaDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +26,11 @@ public class Asignatura {
         this.nombre = nombre;
         this.tipo = tipo;
         this.anio = anio;
+    }
+
+    public Asignatura(AsignaturaDTO asignaturaDTO) {
+        this.nombre = asignaturaDTO.getNombre();
+        this.tipo = asignaturaDTO.getTipo();
+        this.anio = asignaturaDTO.getAnio();
     }
 }
