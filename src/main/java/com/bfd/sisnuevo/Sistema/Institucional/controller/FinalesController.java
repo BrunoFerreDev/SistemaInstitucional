@@ -31,4 +31,13 @@ public class FinalesController {
             return ResponseEntity.badRequest().body("Error al traer los finales");
         }
     }
+    @PostMapping("/inscribir")
+    public ResponseEntity<Object> inscribirAlumno(@RequestParam Long idAlumno, @RequestParam Long idFinal) {
+        try {
+            return ResponseEntity.ok(finalesService.inscribirAlumno(idFinal, idAlumno));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body("Error al inscribir el alumno");
+        }
+    }
 }

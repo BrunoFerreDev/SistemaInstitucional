@@ -9,4 +9,6 @@ public interface CursoService {
     GetCursoDTO crearCurso(CursoDTO curso);
 
     List<GetCursoDTO> traerCursos();
+
+    String inscribirAlumno(Long idAlumno, Long idCurso);
 }

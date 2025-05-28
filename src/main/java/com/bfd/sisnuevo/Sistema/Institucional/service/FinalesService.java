@@ -9,4 +9,6 @@ public interface FinalesService {
     GetFinalesDTO crearFinal(FinalesDTO nuevoFinal);
 
     List<GetFinalesDTO> traerFinales();
+
+    String inscribirAlumno(Long idFinales, Long idAlumno);
 }

@@ -28,4 +28,12 @@ public class CursoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PostMapping("/inscribir")
+    public ResponseEntity<Object> inscribirAlumno(@RequestParam Long idAlumno, @RequestParam Long idCurso) {
+        try {
+            return ResponseEntity.ok(cursoService.inscribirAlumno(idAlumno, idCurso));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
