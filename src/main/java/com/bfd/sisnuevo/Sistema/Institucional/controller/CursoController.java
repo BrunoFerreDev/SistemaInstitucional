@@ -20,6 +20,7 @@ public class CursoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping
     public ResponseEntity<Object> traerTodas() {
         try {
@@ -28,6 +29,7 @@ public class CursoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping("/inscribir")
     public ResponseEntity<Object> inscribirAlumno(@RequestParam Long idAlumno, @RequestParam Long idCurso) {
         try {
