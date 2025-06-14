@@ -1,15 +1,24 @@
 package com.bfd.sisnuevo.Sistema.Institucional.service.impl;
 
 
+import com.bfd.sisnuevo.Sistema.Institucional.dto.AuthLoginDTO;
+import com.bfd.sisnuevo.Sistema.Institucional.dto.AuthResponseDTO;
 import com.bfd.sisnuevo.Sistema.Institucional.model.Persona;
 import com.bfd.sisnuevo.Sistema.Institucional.repository.PersonaRepository;
+import com.bfd.sisnuevo.Sistema.Institucional.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +29,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private PersonaRepository personaRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,4 +66,31 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 authorityList);
     }
 
+    public Authentication authenticate(String username, String password) {
+        //con esto debo buscar el usuario
+        UserDetails userDetails = this.loadUserByUsername(username);
+
+        if (userDetails == null) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
+        // si no es igual
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new BadCredentialsException("Invalid password");
+        }
+        return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
+    }
+
+    public AuthResponseDTO loginUser(AuthLoginDTO loginDTO) {
+        //Obtener usuario y contrasena
+        String usuario = loginDTO.username();
+        String password = loginDTO.password();
+
+        Authentication authentication = this.authenticate(usuario, password);
+
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String tokenAcceso = jwtUtils.createToken(authentication);
+        AuthResponseDTO authResponseDTO = new AuthResponseDTO(usuario, "login ok", tokenAcceso, true);
+        return authResponseDTO;
+    }
 }

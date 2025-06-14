@@ -14,10 +14,10 @@ public class SistemaInstitucionalApplication {
         SpringApplication.run(SistemaInstitucionalApplication.class, args);
     }
 
-    @Bean
+   /* @Bean
     public CommandLineRunner initCommandLineRunner(AsignaturaRepository asignaturaRepository) {
         return args -> {
-        /*    Asignatura algebra = new Asignatura("Algebra", "Cuatrimestral-1", 1);
+            Asignatura algebra = new Asignatura("Algebra", "Cuatrimestral-1", 1);
             asignaturaRepository.save(algebra);
             Asignatura introduccion = new Asignatura("Introduccion a la Informatica", "Cuatrimestral-1", 1);
             asignaturaRepository.save(introduccion);
@@ -74,7 +74,7 @@ public class SistemaInstitucionalApplication {
             Asignatura practicas2 = new Asignatura("Practicas Profesionalizantes II", "Anual", 3);
             asignaturaRepository.save(practicas2);
             Asignatura proyectoFinal = new Asignatura("Proyecto Final", "Cuatrimestral-2", 3);
-            asignaturaRepository.save(proyectoFinal);*/
+            asignaturaRepository.save(proyectoFinal);
         };
-    }
+    }*/
 }
